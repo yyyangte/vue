@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="vue.js"></script>
+    <style>
+        .big{height:200px;width:200px;background: coral;}
+        .small{height:100px;width:100px;background:cornflowerblue}
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h2>{{message}}</h2>
+        <button v-on:click = 'handleClick'>点击</button>
+        <button v-on:dblclick = 'handleClick'>双击</button>
+        <div class="big" @click = 'handleBig()'>
+            <div class="small" @click.stop = 'handleSmall($event)'></div>
+        </div>
+        <div class="big" @contextmenu.prevent="handleMenu()"></div>
+        <input type="text" @keydown.13="handleEnter()">
+    </div>
+</body>
+</html>
+<script>
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            message:1917
+        },
+        methods:{
+            handleClick(){
+                this.message = 1918
+            },
+            handleBig(){
+                console.log("big")
+            },
+            handleSmall(e){
+                console.log(e)
+                // e.stopPropagation()
+                console.log('small')
+            },
+            handleMenu(){
+                console.log("右")
+            },
+            handleEnter(){
+                console.log("huiche")
+            }
+        }
+    })
+    // 当new在实例化对象时，会将data里的所有属性挂载到实例上
+    // 如果需要使用事件对象 需要在函数传参$event
+    // 时间后边跟的修饰符
+    /*
+        .stop  阻止冒泡
+        .once  事件只执行一次
+        .prevent  阻止默认事件
+        .enter  按下回车
+        .(number)  keycode值
+    */
+</script>

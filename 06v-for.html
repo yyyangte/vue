@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="vue.js"></script>
+    <style>
+        body{height:2000px;}
+        .ji{background: cyan;}
+        .ou{background: cornflowerblue;}
+        
+        #table td{height:50px;width:100px;}
+    </style>
+</head>
+<body>
+    <div id="app">
+        <ul>
+            <li v-for = '(item,index) in list'>{{index}}   {{item}}</li>
+            <li v-for = '(value,key,index) in obj'>{{`${key}:${value}--${index}`}}</li>
+        </ul>
+
+    </div>
+    <div id="list">
+        <li v-for = '(item,index) in list' v-bind:class='index%2==1?"ou":"ji"' >           
+            <span v-for = '(i) in list' v-if = 'i<=item'>{{i}}*{{item}}={{i*item}}   </span>
+        </li>
+    </div>
+    <div id="table">   
+        <table >
+            <tr v-for = '(i) in trNum'        
+            v-bind:class="i%2==1?'ji':'ou'">
+                <td v-for = '(i) in tdNum' 
+                v-on:mouseenter="enter($event)"
+                v-on:mouseleave="leave($event)"
+                
+                ></td>
+            </tr>       
+        </table>
+        <select ref="sel" id="sel" v-on:change = "colorChange()">
+            <option v-for = '(item) in list'>{{item}}</option>
+        </select>
+    </div>
+</body>
+</html>
+<script>
+    // v-for = 'item in list' item指的每项  index 指的索引
+    // in of 都可
+    // 顺序 obj：  value key index   list  item index
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            list:[1,2,3,4,5],
+            obj:{
+                us:'aa',
+                ps:'123'
+            }
+        }
+        
+    })
+    var list = new Vue({
+        el:"#list",
+        data:{
+            list:[1,2,3,4,5,6,7,8,9]
+        }
+    })
+    var table = new Vue({
+        el:"#table",
+        data:{
+            trNum:5,
+            tdNum:6,
+            
+            list:["蓝青","红绿","黑白"]
+        },
+        methods:{
+            enter(e){
+                e.target.style.background="red"
+            },
+            leave(e){
+                e.target.style.background=""
+            },
+            colorChange(){
+                console.log(this.$refs.sel.value)
+            }
+        }
+    })
+    
+    // 无法确定是哪一个td
+</script>

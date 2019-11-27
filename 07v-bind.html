@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="vue.js"></script>
+    <style>
+        .big{height:200px;width:200px;background: coral;}
+        .small{height:100px;width:100px;background:cornflowerblue}
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div v-bind:class="myClass"></div>
+        <img :src="urlImg" />
+        <a :href="path">百度</a>
+        <div :class="arrClass"></div>
+        <div :class="objClass"></div>
+        <div :class="n==0?'small':'big'"></div>
+    </div>
+    <script>
+        let vm = new Vue({
+            el: "#app",
+            data: {
+                myClass: 'aaa',
+                urlImg: "https://pics4.baidu.com/feed/960a304e251f95ca9f0cde51edb2b23b65095282.jpeg?token=9c7ec8d6d9670fc4dc3c1979d7d590d4&s=4806D81ACBDB73EF263D03E00300B026",
+                path: "http://www.baidu.com",
+                arrClass: ['box1', 'box2', 'box3'],
+                objClass: {
+                    'box1': true,
+                    'box2':false,
+                    'box3':true,
+                },
+                n:1
+            }
+        })
+    </script>
+</body>
+
+</html>

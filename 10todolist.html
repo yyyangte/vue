@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="vue.js"></script>
+    <style>
+        li{width:200px;list-style: none;margin:5px;}
+        .yellow{background: yellow;}
+        .pink{background: pink;}
+    </style>
+</head>
+<body>
+    <div id="app">
+        <input type="text" ref = "con">
+        <button v-on:click = 'add()'>add</button>
+        <ul>
+            <li v-for='(item,index) in list'
+                v-bind:class='item.state?"yellow":"pink"'>
+                {{item.msg}}
+            <button v-on:click='del(index)'>del</button>
+            
+            <span v-if='item.state'>已完成</span>
+            <button v-else v-on:click = 'update(index)'>完成</button>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>
+<script>
+    var vm = new Vue({
+        el:"#app",
+        data:{
+            list:[],      
+        },
+        methods:{
+            add(){
+                
+                var value = this.$refs.con.value
+                if(value){
+                    this.list.push({msg:value,state:false})
+                }else{
+                    alert("不能为空")
+                }
+                
+                
+            },
+            del(index){
+                this.list.splice(index,1)
+            },
+            update(index){
+                this.list[index].state=true
+            }
+        }
+    })
+
+</script>

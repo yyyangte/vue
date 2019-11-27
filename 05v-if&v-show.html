@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box{height:200px;width:200px;background: #000;}
+        .small{height:100px;width:100px;background: yellow;}
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="box" v-if="flag"></div>
+        <div class="small"></div>
+        <div class="box" v-show="flag"></div>
+    </div>
+</body>
+</html>
+<script src="vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            flag:false
+        }
+    })
+    /**
+     * v-if  判断
+     * true的时候会显示
+     * false的时候会移除
+     * 
+     * 如果使用v-else v-else if 必须要有v-if
+     * 
+     * v-show 判断显示隐藏
+     * true的时候显示
+     * false的时候元素被隐藏，display：none
+     * 
+     * 二者使用场景
+     * v-show需要展示的内容不是特别重要
+     * v-if需要展示的内容重要，例如vip，和普通用户
+     * 性能上v-show比较好一些，因为v-if会使元素经过销毁创建插入
+    */
+</script>

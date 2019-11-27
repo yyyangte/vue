@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="vue.js"></script>
+    <style>
+        [v-cloak]{
+            display:none;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h2 v-pre>{{message}}</h2>
+        <h3 v-cloak>{{message+111}}</h3>
+        <h3 v-cloak>{{message+111}}</h3>
+        <h3 v-cloak>{{message+111}}</h3>
+        <h3 v-cloak>{{message+111}}</h3>
+
+        <h3 v-once>{{message}}</h3>
+        <button @click="handleClick()">点击</button>
+    </div>
+</body>
+</html>
+<script>
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            message:1111
+        },
+        methods:{
+            handleClick(){
+                this.message=2222
+            }
+        }
+    })
+    /*
+    一般很少用到
+        v-once只执行一次，不会再改变
+        v-pre 不解析数据，{{}}失效
+        v-cloak 解决数据一开始显示{{}}先隐藏，获取后在现实
+    */
+</script>

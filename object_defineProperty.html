@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<!-- 
+    
+    给一个对象定义一个新的属性或者在修改一个对象现有的属性，并返回这个对象
+
+语法：
+　　Object.defineProperty(参数1，参数2，参数3)
+　　参数1：目标对象
+
+　　参数2：要修改或者添加的属性名称
+
+　　参数3：目标对象属性的一些特征 (是一个对象)
+　　　　　　
+　　　　　　参数1：
+　　　　　　　　value:属性值
+　　　　　　参数2：
+　　　　　　　　writable：对象属性值是否可以被修改  true允许  false不允许
+　　　　　　参数3：
+　　　　　　　　configurable:对象属性是否可以被删除 true允许  false不允许
+　　　　　　参数4：
+　　　　　　　　enumerable:对象属性是否可被枚举
+　　　　　　参数5：
+　　　　　　　　get():给一个属性提供getter方法，当访问这个对象的属性值得时候触发该方法
+　　　　　　参数6：
+　　　　　　　　set():给一个属性提供setter方法，当设置属性值得时候触发该方法
+ -->
+<script>
+    // var obj = {};
+    // Object.defineProperty(obj,"name",{
+    //     value:'张三'
+    // })
+
+    // Object.defineProperty(obj,"age",{
+    //     value:"28"
+    // })
+    // console.log(obj)
+
+
+    // writable：对象属性值是否可以被修改  true允许  false不允许
+    // var obj = {}
+    // // Object.defineProperty(obj,"name",{
+    // //     value:'张三',
+    // //     writable:false//属性值不允许修改
+    // // })
+    // // obj.name = '李四'
+    // // console.log(obj)//张三
+    // Object.defineProperty(obj,"name",{
+    //     value:'张三',
+    //     writable:true
+    // })
+    // obj.name = '李四'
+    // console.log(obj)//李四
+
+    // configurable:对象属性是否可以被删除 true允许  false不允许
+    // var obj = {}
+    // // Object.defineProperty(obj,"name",{
+    // //     value:'张三',
+    // //     configurable:false//属性不允许删除
+    // // })
+    // // delete obj.name;
+    // // console.log(obj.name)//张三
+    // Object.defineProperty(obj,"name",{
+    //     value:'张三',
+    //     configurable:true//属性允许删除
+    // })
+    // delete obj.name;
+    // console.log(obj.name)//undefined
+</script>
+<script>
+    // var obj = {
+    //     name: "张三",
+    //     age: "李四"
+    // }
+    // // Object.defineProperty(obj, "name", {
+    // //     enumerable: false //当设置为false的时候对象的属性不可被枚举
+    // // })
+    // // Object.defineProperty(obj, "age", {
+    // //     enumerable: false
+    // // })
+    // // console.log(Object.keys(obj)) //[]
+
+    // Object.defineProperty(obj, "name", {
+    //     enumerable: true //当设置为true的时候对象的属性可被枚举
+    // })
+    // Object.defineProperty(obj, "age", {
+    //     enumerable: true
+    // })
+    // console.log(Object.keys(obj)) //["name",age]
+
+    // for in  Object.keys()区别
+
+    // function Person(name,age){
+    //     this.name = name;
+    //     this.age = age;
+    // }
+    // Person.prototype = {
+    //     sex:'男'
+    // }
+    // var man = new Person('张三',18);
+    // console.log(Object.keys(man))//["name", "age"]
+    // for(var key in man){
+    //     console.log(key)//name  age  sex
+    // }
+    // Object.keys():返回一个数组。数组值为对象自有的属性，不会包括继承原型的属性
+    // for in():遍历对象可枚举属性，包括自身属性以及继承自原型的属性
+
+    var obj = {name:"张三"}
+    Object.defineProperty(obj,"name",{
+        get(){
+            console.log('被访问了')
+        },
+        set(newVal){
+            console.log('被设置了新值'+newVal)
+        }
+    })
+    obj.name//被访问了
+    obj.name = '李四'//被设置了新值李四
+    // 当使用了get()方法或者set()方法的时候就不能使用value和writable中的任何一个属性否则会报错
+</script>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="vue.js"></script>
+    <style>
+        #content{
+            width:200px;
+            height:300px;
+            background: yellow;
+        }
+        .bk{background: pink;}
+    </style>
+</head>
+<body>
+    <div id='app'>
+        <span v-for='(item,index) in list' 
+        v-on:click='handleToggle(index)'
+        v-bind:class='index==num?"bk":""'
+        >{{item.title}}</span>
+        <div id="content">
+            <div v-for='(item,index) in list' v-if='index==num'>{{item.content}}</div>
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            list:[
+                {
+                    title:"标题一",
+                    content:"内容一"
+                },
+                {
+                    title:"标题2",
+                    content:"内容2"
+                },
+                {
+                    title:"标题3",
+                    content:"内容3"
+                }
+            ],
+            num:0
+        },
+        methods:{
+            handleToggle(index){
+                this.num = index;
+
+            }
+        }
+    })
+</script>

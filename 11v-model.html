@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-model="message">
+        <p>{{message}}</p>
+        <hr>
+        <label>男</label><input type="radio" value='男' v-model='radioVal'>
+        <label>女</label><input type="radio" value="女" v-model='radioVal'>
+        <p>您选择的性别是{{radioVal}}</p>
+        <hr>
+        <label>音乐1</label>
+        <input type="checkbox" value="音乐1" v-model="checkboxVal">
+        <label>音乐2</label>
+        <input type="checkbox" value="音乐2" v-model="checkboxVal">
+        <label>音乐3</label>
+        <input type="checkbox" value="音乐3" v-model="checkboxVal">
+        <label>音乐4</label>
+        <input type="checkbox" value="音乐4" v-model="checkboxVal">
+        <span v-for='(item,index) in checkboxVal'>{{item}}</span>
+        <hr>
+        <select v-model="selectVal">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+        </select>
+        <p>你选择的是{{selectVal}}</p>
+    </div>
+</body>
+</html>
+<script>
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            message:111,
+            radioVal:'男',
+            checkboxVal:[],
+            selectVal:0
+        }
+    })
+// v-model
+// 双数据绑定 只能给表单元素使用
+</script>
