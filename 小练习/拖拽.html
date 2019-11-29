@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+    <style>
+        #box {
+            height: 100px;
+            width: 100px;
+            background: chartreuse;
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div id="box" v-drag.xy="flag"></div>
+    </div>
+</body>
+
+</html>
+<script>
+    Vue.directive("drag", (el, {
+        value,
+        modifiers
+    }) => {
+        el.addEventListener("mousedown", down)
+        var _this = this;
+        var {x,y} = modifiers;
+        function down(e) {
+            _this.disX = e.offsetX;
+            _this.disY = e.offsetY;
+            document.addEventListener("mousemove", move);
+            document.addEventListener("mouseup", up);
+        }
+
+        function move(e) {
+            let l = e.clientX - _this.disX;
+            let t = e.clientY - _this.disY;
+            if(value){
+                if (x) {
+                    el.style.left = l + 'px';
+                }
+                if (y) {
+                    el.style.top = t + "px";
+                }
+                if(x&&y||(!x&&!y)){
+                    el.style.left = l + 'px';
+                    el.style.top = t + "px";
+                }
+            }
+        }
+        function up() {
+            document.removeEventListener("mousemove", move);
+            document.removeEventListener("mouseup", up);
+        }
+    })
+
+    let vm = new Vue({
+        el: "#app",
+        data: {
+            flag: true
+        }
+    })
+</script>

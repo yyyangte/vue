@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div v-alley="message"></div>
+        <div v-alley="8465132"></div>
+
+        <div v-style.c="myStyle"></div>
+    </div>
+</body>
+</html>
+<script>
+    Vue.directive("alley",(el,{value})=>{
+        el.innerText=value
+    })
+    Vue.directive("style",(el,{value,modifiers})=>{
+        let {a,b,c} = modifiers;
+
+        var str="";
+        for(var i in value){
+            str+=`${i}:${value[i]};`
+        }
+        if(a){
+            str+='background:yellow;'
+        }else if(b){
+            str+='background:red;'
+        }else if(c){
+            str+='background:black;'
+        }
+        el.style.cssText=str;
+    })
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            message:"1111",
+            myStyle:{
+                width:"200px",
+                height:"200px",
+                background:"red"
+            }
+        }
+    })
+    /*
+        vue.directive:自定义指令
+        Vue.direction(指令名称，指令实现的函数)
+
+        指令实现的函数中的参数
+            参一：当前指令作用的元素
+            参二：是一个对象，对象中有value值，是表达式的结果
+                  modifiers是使用的修饰符
+
+        全局的指令必须在实例之前
+    */
+</script>

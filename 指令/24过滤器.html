@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <p>{{message|reverseData}}</p>
+    </div>
+
+</body>
+</html>
+<script>
+    Vue.filter("reverseData",(value)=>{
+        return value.split("").reverse().join("")
+    })
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            message:"1234"
+        }
+    })
+    /*
+    filter：过滤 
+    Vue.filter(过滤器的名称，过滤器实现的函数)
+    全局过滤器必须要在实例化之前
+    {{属性|过滤器}}
+    局部：filters
+    */
+</script>

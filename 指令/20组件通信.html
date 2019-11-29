@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+    <style>
+        .demo{
+          background: red;
+          height: 100px;
+          width: 100px;
+        }
+        </style>
+</head>
+<body>
+    <div id="test">
+        <Fa></Fa>
+    </div>
+    <template id="fa">
+        <div class="fa">
+            <h3>我是爸爸</h3>
+            <hr>
+            <Son @fasong='buy'></Son>
+        </div>
+    </template>
+    <template id="son">
+        <div calss="son">
+            <button @click='fs'>click</button>
+        </div>
+    </template>
+</body>
+</html>
+<script>
+    Vue.component('Fa',{
+        template:"#fa",
+        methods:{
+            buy(n1,n2){
+                alert(n1+n2)
+            }
+        }
+    })
+    Vue.component('Son',{
+        template:"#son",
+        methods:{
+            fs(){
+                this.$emit('fasong',1,2)
+            }
+        }
+    })
+    new Vue({
+        el:"#test"
+    })
+</script>

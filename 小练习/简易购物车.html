@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <p>零食</p>
+        <p>单价:{{goods.price}}</p>
+        <button @click="reduce()">-</button>
+        <input type="text" v-model="goods.n">
+        <button @click="add()">+</button>
+        <p>运费：{{goods.freight|sign("欧")}}</p>
+        <p>小计:{{sum|sign()}}</p>
+    </div>
+</body>
+</html>
+<script>
+    Vue.filter("sign",(value,params)=>{
+        if(params){
+            return value/10+params;
+        }else{
+            return value+"￥"
+        }
+    })
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            goods:{
+                price:19.9,
+                n:1,
+                freight:10
+            }
+        },
+        computed:{
+            sum(){
+                let count = this.goods.price*10*this.goods.n/10
+                if(count>=99){
+                    return count;
+                }else{
+                    return count+this.goods.freight
+                }
+            }
+        },
+        methods:{
+            reduce(){
+                if(this.goods.n>1){
+                    this.goods.n--;
+                }
+            },
+            add(){
+                this.goods.n++;
+            }
+        }
+    })
+</script>

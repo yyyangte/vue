@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+<body>
+    <div id="app">      
+        <label>音乐1</label>
+        <input type="checkbox" value="音乐1" @change="handleChange($event)">
+        <label>音乐2</label>
+        <input type="checkbox" value="音乐2" @change="handleChange($event)">
+        <label>音乐3</label>
+        <input type="checkbox" value="音乐3" @change="handleChange($event)">
+        <label>音乐4</label>
+        <input type="checkbox" value="音乐4" @change="handleChange($event)">
+        <span v-for='(item,index) in checkboxVal'>{{item}}</span>     
+    </div>
+</body>
+</html>
+<script>
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            checkboxVal:[],        
+        },
+        methods:{
+            handleChange(e){
+                let val = e.target.value;
+                if(this.checkboxVal.length==0){
+                    this.checkboxVal.push(val)
+                }else{
+                    let flag = this.checkboxVal.includes(val);
+                    if(flag){
+                        let index = this.checkboxVal.indexOf(val);
+                        this.checkboxVal.splice(index,1);
+                    }else{
+                        this.checkboxVal.push(val);
+                    }
+                }
+            }
+        }
+    })
+</script>

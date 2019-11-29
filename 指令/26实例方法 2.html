@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app"></div>
+</body>
+</html>
+<script src="../vue.js"></script>
+<script>
+    /*
+        事件绑定 $on   
+            参数1 事件名称
+            参数2 事件函数
+        事件解绑 $off  
+            参数1 事件名称
+            参数2 需要解绑的函数 （可选）不写默认全部函数
+        事件触发 $emit  
+            参数1 事件名称
+            参数2 需要传递的参数（可选）
+        触发一次 $once  
+            参数1 事件名称
+            参数2 事件函数
+    */
+    let vm = new Vue({
+        el:"#app"
+    })
+    function fn1(params){
+        console.log(11,params)
+    }
+    function fn2(params){
+        console.log(22,params)
+    }
+    function fn3(params){
+        console.log(33,params)
+    }
+    vm.$on("handle",fn1);
+    vm.$on("handle",fn2);
+    vm.$once("handle",fn3);
+    vm.$off("handle",fn1)
+    vm.$emit("handle","yang")
+    vm.$emit("handle","ya")
+</script>

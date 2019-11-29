@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+    <script src="../base/swiper.min.js"></script>
+    <link rel="stylesheet" href="../base/swiper.min.css">
+    <style>
+        html, body {
+            position: relative;
+            height: 100%;
+        }
+        body {
+            background: #eee;
+            font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            color:#000;
+            margin: 0;
+            padding: 0;
+        }
+        .swiper-container {
+            width: 1000px;
+            height: 500px;
+            margin:0 auto;
+
+        }
+        .swiper-slide {
+            text-align: center;
+            font-size: 18px;
+            background: #fff;
+
+            /* Center slide text vertically */
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" >
+        <banner></banner>
+        <banner></banner>
+    </div>
+
+<template id="sw" >
+<div>
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide" v-for="(item) in list"><img v-bind:src='item'/></div>       
+        </div>    
+        <div class="swiper-pagination"></div>   
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+    </div>
+</div>
+</template>
+<script>
+    Vue.component('banner',{
+        template:'#sw',
+        data(){
+            return{
+                list:["http://img2.imgtn.bdimg.com/it/u=3399637347,3669664857&fm=26&gp=0.jpg","http://img4.imgtn.bdimg.com/it/u=3760046720,1280563308&fm=15&gp=0.jpg","http://img4.imgtn.bdimg.com/it/u=1119915638,1446614840&fm=26&gp=0.jpg","http://img4.imgtn.bdimg.com/it/u=114831758,2467395476&fm=26&gp=0.jpg","http://img2.imgtn.bdimg.com/it/u=3542574997,396188767&fm=26&gp=0.jpg"]
+            }
+        },
+        created(){
+            console.log("dd")
+        }
+    })
+    new Vue({
+        el:'#app'          
+    })
+    var swiper = new Swiper('.swiper-container', {
+        spaceBetween: 30,
+        centeredSlides: true,
+        loop:true,
+        autoplay: {
+            delay: 2500,
+            disableOnInteraction: false,
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+    });
+</script>
+</body>
+
+</html>

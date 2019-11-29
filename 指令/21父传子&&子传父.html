@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../vue.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id='test'>
+        <Fa></Fa>
+    </div>
+    <!-- 父组件 -->
+    <template id='fa'>
+        <div class='fa'>
+            <Son :title='aaa' @handle="handleData"></Son>
+            <p>{{jieshou}}</p>
+        </div>
+    </template>
+    <!-- 子组件 -->
+    <template id='son'>
+        <div class="son">
+            <h3>{{title}}</h3>
+            <button @click="handleClick()">发送到父级</button>
+        </div>
+    </template>
+
+<script>
+    Vue.component('Fa', {
+        template: "#fa",
+        data() {
+            return {
+                aaa: "fu",
+                jieshou:""
+            }
+        },
+        methods:{
+            handleData(params){
+                this.jieshou=params;
+                console.log(params)
+            }
+        }
+    })
+    Vue.component('Son', {
+        template: "#son",
+        props: {
+            title: {
+                type: String,
+                require: true
+            }
+        },
+        data(){
+            return{
+                bbb:"son"
+            }
+        },
+        methods:{
+            handleClick(){
+                this.$emit("handle",this.bbb)
+            }
+        }
+    })
+
+    new Vue({
+        el: '#test'
+
+    })
+    /**
+        父传子
+        传递：当子组件在父组件中做标签使用的时候，给子组件绑定一个自定义属性值为需要传递的参数
+        接受：在子组件内部通过props的方式进行接收，数组或对象
+        优先使用对象接收
+           参数：type：类型  规定传值参数的数据类型
+                default：默认值  当参数不传递时候使用默认值
+                required：true 当前外部属性必须传递
+    */
+</script>
+
+</body>
+
+</html>

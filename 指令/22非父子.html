@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+
+<body>
+    <div id='test'>
+        <Test1></Test1>
+        <Test2></Test2>
+    </div>
+    <template id="test1">
+        <div class="test1">
+            <p>{{mes}}</p>
+        </div>
+
+    </template>
+
+    <template id="test2">
+        <div class="test2">
+            <button @click="sonfun()">发送</button>
+        </div>
+    </template>
+</body>
+
+</html>
+<script>
+    // test2给test1发送
+    let vm = new Vue();//创建空的 实例 ？
+    Vue.component("Test1",{
+        template:"#test1",
+        data(){
+            return{mes:""}
+        },
+        created(){
+            vm.$on('hehe',(params)=>{
+                console.log(params)
+                this.mes=params;
+            })
+        }
+    })
+    
+    Vue.component("Test2",{
+        template:"#test2",
+        data(){
+            return{mes:"222"}
+        },
+        methods:{
+            sonfun(){
+                vm.$emit('hehe',this.mes)
+            }
+        }
+    })
+    new Vue({
+        el:'#test'
+    })
+    /**
+     * 1.Vue.prototype.$boserver=new Vue()
+     * this.$observer.$emit
+     * 2.手动封装
+     * 3.eventBus
+     * 4.vuex
+     * 5.mobx
+     * 
+    */
+</script>

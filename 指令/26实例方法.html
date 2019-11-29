@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <span id="msg">{{message}}</span>
+        <div>{{obj.us}}---{{obj.age}}</div>
+        <button @click="handleClick()">改变年龄</button>
+        <button @click="handleModify()">点击更改数据</button>
+    </div>
+    <button onclick="handleMount()">点击挂载</button>
+    <button onclick="handleupdate()">点击改变</button>
+    <button onclick="handleDestroy()">销毁</button>
+</body>
+</html>
+<script src="../vue.js"></script>
+<script>
+    /*
+        vm.$mount 外部挂载
+        vm.$forceUpdate强制更新
+        vm.$nextTick获取数据更新后最新的dom结构
+            this.$nextTick是同步的但是他的回调是异步的
+        vm.$destroy销毁
+    
+    */
+    let vm = new Vue({
+        data:{
+            message:1917,
+            obj:{
+                us:"aaa"
+            }
+        },
+        beforeMount(){
+            this.obj.age=20
+        },
+        methods:{
+            handleClick(){
+                this.obj.age=30//30不是响应式数据
+            },
+            handleModify(){
+                this.message=100000;
+                this.$nextTick(()=>{
+                    // 获取到数据更新后最新的dom结构
+                    // this.$nextTick是同步的，但回掉是异步的
+                    console.log(msg.offsetWidth)
+                })
+            }
+        }
+    })
+    function handleMount(){
+        vm.$mount("#app")//外部挂载
+    }
+    function handleupdate(){
+        vm.$forceUpdate()//强制更新
+    }
+    function handleDestroy(){
+        vm.$destroy()//销毁
+    }
+</script>

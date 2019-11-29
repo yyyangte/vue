@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-model="n"></input>
+        <input type="text" v-model="m"></input>
+        <input type="text" v-model="obj.username"></input>
+        <input type="text" v-model="obj.age"></input>
+    </div>
+</body>
+</html>
+<script>
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            n:"",
+            m:"",
+            obj:{
+                username:"aaa",
+                age:20
+            }
+        },
+        watch:{
+            n(newVal,oldVal){
+                console.log("n改变",newVal,oldVal)
+            },
+            obj:{
+                handler(newVal){
+                    console.log("obj改变",newVal)
+                },
+                deep:true,
+                immediate:true
+            }
+            // "obj.username"(newVal,oldVal){
+            //     console.log("obj  usename改变",newVal,oldVal)
+            // }
+        }
+    })
+    /*
+        watch属性监听
+        watch属性监听依赖data中的属性，当data中的属性发生改变的时候watch中对应的函数会去执行
+
+        1.函数名必须是属性名
+        2.函数不需要调用
+        3.watch中的函数会有两个参数 一个新值，一个旧值
+        4.watch中的监听对于对象而言只会监听对象的索引是否发生了改变，不会监听对象中的值是否改变
+        5.深度监听deep配合handler  可以监听obj的值改变
+        6.对obj的单独一个属性监听
+        7.immediate可以帮助我们在页面加载进来的时候做一次监听
+        8.可以监听路由的变化
+        使用场景
+            搜索框，响应式布局
+    */
+</script>

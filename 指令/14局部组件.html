@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+<body>
+    <div id="test">
+        <test></test>
+    </div>
+    <hr>
+    <div id="test1">
+        <test></test>
+    </div>
+</body>
+</html>
+<script>
+    // let component = Vue.extend({
+    //     template:"<div>test</div>"
+    // })
+    // 这里注册的组件在别的vue实例中获取不到
+    new Vue({
+        el:"#test",
+        components:{
+            // 'test':component
+
+            // 简写
+            'test':{
+                template:"<div>test</div>"
+            }
+        }
+    })
+    new Vue({
+        el:"#test1"
+    })
+
+</script>

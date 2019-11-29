@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+    <style>
+        .demo{
+            background: red;
+            height: 100px;
+            width: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div id="test">
+        <Fa></Fa>
+    </div>
+
+    <template id="fa">
+        <div class="fa">
+            money:{{money}}
+            <Son :buy='bbb'></Son>
+        </div>
+    </template>
+    <template id="son">
+        <div class="son">
+            <div class="demo">
+                <button @click='buy'>buy</button>
+            </div>
+        </div>
+    </template>
+</body>
+</html>
+<script>
+    Vue.component('Fa',{
+        template:'#fa',
+        data(){
+            return{
+                money:20
+            }
+        },
+        methods:{
+            bbb(){
+                this.money-=5
+            }
+        }
+    })
+    Vue.component('Son',{
+        template:"#son",
+        props:["buy"],
+        created(){
+            console.log(this)
+        }
+    })
+    new Vue({
+        el:"#test"
+    })
+</script>

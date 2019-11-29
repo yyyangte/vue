@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-model.number="n">
+        <input type="text" v-model.number="m">
+        <button @click="handleClick">sum</button>
+        <p>计算属性{{count}}</p>
+    </div>
+</body>
+</html>
+<script>
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            n:"",
+            m:"",
+            sum:""
+        },
+        methods:{
+            handleClick(){
+                console.log("执行了")
+                this.sum = this.n+this.m;
+                console.log(this.sum)
+            }
+        },
+        computed:{
+            count(){
+                console.log("computed  fun")
+                return this.n+this.m
+            }
+        }
+    })
+    /*
+        计算属性
+          通过属性计算得来的属性
+          computed：计算属性依赖于data中的属性，当属性发生了改变，那么计算属性的方法就执行
+          1.计算属性里面的方法在调用时不需要加（）
+          2.计算属性里面的方法需要有一个return返回数据
+          3.不要给计算属性里的给data中的值做赋值操作
+
+          场景：购物车，计算类
+          一个属性需要依赖多个属性
+    */
+</script>

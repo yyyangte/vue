@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+<body>
+    <div id="test">
+        <test></test>
+    </div>
+    <hr>
+    <div id="test1">
+        <test></test>
+    </div>
+</body>
+</html>
+<script>
+    // 通过Vue.component注册的组件都是全局组件，所有实例都可以用
+    // let component = Vue.extend({
+    //     template:"<div>test</div>"
+    // })    
+    // Vue.component('test',component)
+
+    // 简写
+    Vue.component('test',{
+        template:`<div>
+            <ul>
+                <li v-for="item in navs" @click="handleClick()">{{item}}</li>
+            </ul>
+        </div>`,
+        data(){
+            return{
+                navs:["首页","gaunyu"]
+            }
+        },
+        methods:{
+            handleClick(){
+                alert(1)
+            }
+        }
+    })
+
+    new Vue({
+        el:"#test"
+    })
+    new Vue({
+        el:"#test1"
+    })
+
+</script>

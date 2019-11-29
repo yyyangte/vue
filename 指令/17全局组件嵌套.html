@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+<body>
+    <div id="test">
+        <Son></Son>
+    </div>
+    <template id="fa">
+        <div class="fa">
+            父组件
+            
+        </div>
+    </template>
+    <template id="son">
+        <div class="son">
+            子组件
+            <Fa></Fa>
+        </div>
+    </template>
+</body>
+</html>
+
+<script>
+    // 不分父子 没有固定的嵌套关系
+    Vue.component('Fa',{
+        template:'#fa'
+    })
+    Vue.component('Son',{
+        template:"#son"
+    })
+    new Vue({
+        el:'#test',
+    })
+</script>
