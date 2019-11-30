@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="../vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <button @click='handleClick()'>click</button>
+  </div>
+</body>
+</html>
+<script>
+  let vm = new Vue({
+    el:"#app",
+    data:{
+      arr:[10,20,30]
+    },
+    methods:{
+      handleClick(){
+        this.$set(this.arr,0,100)
+      }
+    },
+    watch:{
+      arr(value){
+        console.log("数组发生改变",value)
+      }
+    }
+  })
+/*
+watch中的数组中哪些情况监听不到？如何解决？
+  1.通过数组下标来进行数据修改 this.arr[1]=111   this.$set
+  2.直接改变数组length长度 this.arr.length      splice(0,this.arr.length)
+
+  this.$set() 给一个响应式对象添加响应式属性
+    参一：数组或者对象
+    参二：下标或者key值
+    餐三：修改或添加的数据
+
+  this.$delete()  删除
+    参一：数组/对象
+    参二：下标/key
+*/
+</script>

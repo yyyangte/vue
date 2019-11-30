@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+    <style>
+        .red{background: red;}
+        .yellow{background: yellow;}
+    </style>
+</head>
+<body>
+    <div id="app"> 
+        <Myinput @add1="add"></Myinput>
+        <List :list="arr" :del="del"></List>
+    </div>
+    <template id="tp1">
+        <div>
+            <input type="text" v-model="inputValue">
+            <button @click="sonAdd">add</button> 
+        </div>
+    </template>
+    <template id="tp2">
+        <div>
+            <ul>
+                <li v-for="(item,index) in list" 
+                    :class='item.state?"yellow":"red"'>
+                    {{item.msg}}
+                    <button @click="sonDel(index)">del</button>
+                </li>
+            </ul>
+        </div>
+    </template>
+</body>
+</html>
+<Script>
+    var vm = new Vue({
+        el:"#app",
+        data:{
+            arr:[{msg:"aaa",state:true}]
+        },
+        methods:{
+            del(index){
+                this.arr.splice(index,1)
+            },
+            add(msg){
+                this.arr.push({msg:msg,state:false})
+            }
+        },
+        components:{
+            "Myinput":{
+                template:"#tp1",
+                data(){
+                    return{
+                        inputValue:""
+                    }
+                },
+                methods:{
+                    sonAdd(){
+                        this.$emit('add1',this.inputValue)
+                    }
+                },
+            },
+            "List":{
+                template:"#tp2",
+                props:["list","del"],
+                methods:{
+                    sonDel(index){
+                        this.del(index)
+                    }
+                }
+            }
+        }
+    })
+</Script>

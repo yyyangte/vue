@@ -78,28 +78,36 @@
         },
         created(){
             console.log("dd")
+            // 获取数据  
+            // 生命周期执行速度远快于网络请求，当开始请求不到，宽度为零就会出错
+            // this.$nextTick(()=>{
+            //     this.initBanner()
+            //    })//上次数据修改引起dom更新结束执行
+        },
+        mounted(){
+            var swiper = new Swiper('.swiper-container', {
+                spaceBetween: 30,
+                centeredSlides: true,
+                loop:true,
+                autoplay: {
+                    delay: 2500,
+                    disableOnInteraction: false,
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+            });
         }
     })
     new Vue({
         el:'#app'          
     })
-    var swiper = new Swiper('.swiper-container', {
-        spaceBetween: 30,
-        centeredSlides: true,
-        loop:true,
-        autoplay: {
-            delay: 2500,
-            disableOnInteraction: false,
-        },
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
-        },
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-        },
-    });
+    
 </script>
 </body>
 
