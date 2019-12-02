@@ -1,0 +1,16 @@
+@charset "utf-8";
+*{margin:0;padding:0;}
+img {border:none;}
+em,i{ font-style:normal;}
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, p, blockquote, th, td, font { padding: 0; margin: 0; font-family:"微软雅黑"; }
+table { border-collapse: collapse; border-spacing: 0;}
+h1, h2, h3, h4, h5, h6 { font-weight: normal; font-size: 100%; }
+ol, ul, li, dl, dt, dd { list-style: none; }
+input, button, textarea, checkbox, select, radio, form { vertical-align: top; }
+a{ color: #000; text-decoration: none; }
+a:link, a:visited { text-decoration: none; }
+a:hover{color:#cd0200;text-decoration:underline}
+input[type="submit"],  input[type="reset"],  input[type="button"],  button {
+    -webkit-appearance: none;
+}
+html,body{height:100%}
