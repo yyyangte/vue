@@ -1,22 +1,22 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 Vue.use(Router)
-import Home from '../components/Home.vue'
-import Singer from '../components/Singer.vue'
-import Rank from '../components/Rank.vue'
-import Search from '../components/Search.vue'
+import Recommend from '../pages/Recommend.vue'
+import Singer from '../pages/singer/Singer.vue'
+import Rank from '../pages/Rank.vue'
+import Search from '../pages/Search.vue'
 
 let router = new Router({
   mode:'hash',
   routes:[
     {
       path:'/',
-      redirect:'home'//重定向主页
+      redirect:'recommend'//重定向主页
     },
     {
-      name:'home',
-      path:'/home',
-      component:Home
+      name:'recommend',
+      path:'/recommend',
+      component:Recommend
     },
     {
       name:'singer',
