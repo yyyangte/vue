@@ -2,11 +2,16 @@
   <div>
     <div class="singer">
       <ul>
-        <li v-for="(item,index) in singers" :key="index" ref="test">
+        <li v-for="(item,index) in singers" 
+            :key="index" 
+            ref="test">
           <div class="title">{{item.title}}</div>
 
           <ol>
-            <li class="con" v-for="(sItem,sIndex) in item.list" :key="sIndex">
+            <li class="con" 
+            v-for="(sItem,sIndex) in item.list" 
+            :key="sIndex"
+            @click='jumpDetail(sItem.Fsinger_mid)'>
               <img :src="sItem.Fsinger_url">
               <span>{{sItem.Fsinger_name}}</span>
             </li>
@@ -25,6 +30,7 @@
         >{{item}}</li>
       </ul>
     </div>
+    <router-view></router-view>
   </div>
 </template>
 <script>
@@ -53,15 +59,15 @@ export default {
     }
   },
   methods: {
-    jumpDetail() {
-      this.$router.push("/singer/detail");
+    jumpDetail(mid) {
+      this.$router.push({path:`/singer/${mid}`});
     },
     touchStart(e) {
-      console.log(e.touches[0])
-      console.log("anxia");
+      // console.log(e.touches[0])
+      // console.log("anxia");
       this.weizhi.chushi = e.touches[0].pageY;
       this.weizhi.index=this.sliderData.indexOf(this.selIndex)
-      console.log(this.weizhi)
+      // console.log(this.weizhi)
     },
     touchMove(e) {
       // console.log(e.touches[0]);
@@ -70,22 +76,22 @@ export default {
       this.moveElement(this.weizhi.num+this.weizhi.index);
     },
     touchEnd() {
-      console.log(this.weizhi.num+this.weizhi.index)
+      // console.log(this.weizhi.num+this.weizhi.index)
       this.moveElement(this.weizhi.num+this.weizhi.index);
-      console.log("抬起");
+      // console.log("抬起");
       this.selIndex=this.weizhi.num+this.weizhi.index;
     },
     sliderClick(item,index) {
       this.selIndex = item;     
       this.weizhi.index=index;
-      console.log(this.weizhi.index);
+      // console.log(this.weizhi.index);
       this.moveElement(index);
     },
     moveElement(index) {
       this.bs.scrollToElement(this.$refs.test[index]);
     },
     getTops() {
-      console.log(this);
+      // console.log(this);
       this.tops = this.$refs.test.map(item => {
         return item.offsetTop;
       });
@@ -111,10 +117,9 @@ export default {
     }
   },
   created() {
-    console.log(1111);
     getSingerList().then(res => {
       let result = initSingerData(res.data.list);
-      console.log(result);
+      // console.log(result);
       this.singers = result;
       this.singers[0].title = "热门";
       this.$nextTick(() => {

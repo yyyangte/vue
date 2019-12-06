@@ -1,0 +1,171 @@
+<template>
+  <div class="detail">
+    <div class='con' :style='background'>
+      <div class='top'>
+        <img class='back' src="../../images/back.png" @click='back'>
+        <span>{{songname}}</span>
+      </div>
+      <div class='buofang'>
+        <div>
+          <img src="../../images/play.png">
+          <span>随即播放全部</span>
+        </div>
+      </div>
+      <div class="bk"></div>
+    </div>
+    <div class="view">
+      <div class="list">
+        <ul>
+          <li v-for="(item,index) in list" :key="index" 
+              @click="goPlay(item.songmid)"  >
+            <h3>{{item.songorig}}</h3>
+            <p>{{item.singer}}·{{item.albumname}}</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+import {getSongList,getMusicUrl} from 'api/index.js';
+import {initSongData} from './detail.js';
+import Bs from 'better-scroll';
+export default {
+  data(){
+    return{
+      songname:"",
+      background:{
+        backgroundImage:""
+      },     
+      list:[],
+      id:this.$route.params.mid
+    }
+  },
+  methods:{
+    back(){
+      this.$router.go(-1)
+    },
+    initBs(){
+      this.bs = new Bs(".view",{
+        click:true,
+      });
+    },
+    goPlay(songmid){
+      // console.log(songmid)
+      getMusicUrl(songmid)
+      .then((res)=>{
+        console.log(res)
+      })
+    }
+  },
+  created(){
+    // console.log(this.id)
+    this.background.backgroundImage=`url('https://y.gtimg.cn/music/photo_new/T001R300x300M000${this.id}.jpg?max_age=2592000')`
+    getSongList(this.id).then((res)=>{
+      console.log(res);
+      this.songname=res.data.singer_name;
+      this.list = initSongData(res.data.list);   
+      console.log(this.list);
+    })
+  },
+  mounted(){
+    this.initBs();
+  }
+}
+</script>
+<style scoped lang='less'>
+@import '~style/index.less';
+.view{
+  .fixed(262,0,0,0,@bkcolor);
+  overflow: hidden;
+}
+.detail{
+  .fixed(0,0,0,0,@bkcolor);
+  .con{
+    .w(375);
+    .h(262);
+    background-repeat: no-repeat;
+    background-size:100% 140%;
+    position: relative;
+    .top{
+      position: absolute;
+      top:0;
+      z-index:10;
+      .w(375);
+      .h(40);
+      display: flex;
+      .back{
+        .h(30);
+        .w(30);
+        margin-left:10px;
+      }
+      span{
+        display: inline-block;
+        font-size:@fs-l;
+        color:#fff;
+        .h(40);
+        .l_h(40);
+        width:80%;
+        text-align: center;
+      }
+    }
+    .buofang{
+      position: absolute;
+      .w(375);
+      .h(32);
+      left:30%;     
+      top:80%;
+      z-index:10;
+      div{      
+        .w(135);
+        .h(30);
+        border:1px solid @colored;
+        color:@colored;
+        font-size:@fs-xs;
+        .l_h(30);
+        display: flex;
+        justify-content: center;
+        border-radius:15px;
+        
+        img{
+          .h(25);
+          .w(25);
+        }
+      
+      }
+    }
+    .bk{
+      position: absolute;
+      top:0;
+      background: rgba(0,0,0,0.3);
+      .h(262);
+      .w(375);
+    }
+  }
+  .list{
+    .w(375);
+    padding-top:20px;
+    li{     
+      .w(315);
+      .h(44);
+      margin-top:20px;
+      padding-left:30px;
+      font-size:@fs-s;
+      h3{
+        .h(20);
+        .l_h(20);
+        color:#fff;
+        text-align: left;
+        margin-bottom: 4px;
+      }
+      p{
+        .l_h(20);
+        color:@color;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+    }
+  }
+}
+</style>

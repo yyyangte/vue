@@ -5,6 +5,8 @@ import Recommend from '../pages/Recommend.vue'
 import Singer from '../pages/singer/Singer.vue'
 import Rank from '../pages/Rank.vue'
 import Search from '../pages/Search.vue'
+import Detail from 'pages/detail/detail.vue'
+
 
 let router = new Router({
   mode:'hash',
@@ -21,7 +23,13 @@ let router = new Router({
     {
       name:'singer',
       path:'/singer',
-      component:Singer
+      component:Singer,
+      children:[
+        {
+          path:':mid',
+          component:Detail
+        }
+      ]
     },
     {
       name:'rank',

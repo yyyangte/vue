@@ -1,5 +1,5 @@
 export const  initSingerData=(list)=>{
-  console.log('歌手数据',list)
+  // console.log('歌手数据',list)
   //创建默认数据格式  hot 
   let singers={'hot':{title:'hot',list:[]}}
  //  循环数据源 组成需要的数据对象
@@ -34,7 +34,7 @@ export const  initSingerData=(list)=>{
  // 用sort 方法按照下标排序
  let sortArr=other.sort((a,b)=>{return a.title.charCodeAt()-b.title.charCodeAt()})
  let result = hot.concat(sortArr)
- console.log(result)
+//  console.log(result)
   return result
 
  }

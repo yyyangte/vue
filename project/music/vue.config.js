@@ -12,6 +12,13 @@ module.exports={
         pathRewrite:{//路径重写
           "^/hh":''
         }
+      },
+      "/hy":{
+        target:'https://u.y.qq.com',
+        changeOrigin:true,
+        pathRewrite:{
+          "^/hy":''
+        } 
       }
     }
   },
