@@ -17,9 +17,9 @@
       <div class="list">
         <ul>
           <li v-for="(item,index) in list" :key="index" 
-              @click="goPlay(item.songmid)"  >
+              @click="goPlay(index)"  >
             <h3>{{item.songorig}}</h3>
-            <p>{{item.singer}}·{{item.albumname}}</p>
+            <p>{{item.singername}}·{{item.albumname}}</p>
           </li>
         </ul>
       </div>
@@ -30,6 +30,7 @@
 import {getSongList,getMusicUrl} from 'api/index.js';
 import {initSongData} from './detail.js';
 import Bs from 'better-scroll';
+import {mapMutations} from 'vuex';
 export default {
   data(){
     return{
@@ -42,6 +43,7 @@ export default {
     }
   },
   methods:{
+    ...mapMutations(['addSongList','changeNowIndex']),
     back(){
       this.$router.go(-1)
     },
@@ -50,12 +52,11 @@ export default {
         click:true,
       });
     },
-    goPlay(songmid){
+    goPlay(index){
       // console.log(songmid)
-      getMusicUrl(songmid)
-      .then((res)=>{
-        console.log(res)
-      })
+      this.addSongList(this.list);
+      this.changeNowIndex(index)
+     
     }
   },
   created(){
@@ -64,8 +65,14 @@ export default {
     getSongList(this.id).then((res)=>{
       console.log(res);
       this.songname=res.data.singer_name;
-      this.list = initSongData(res.data.list);   
-      console.log(this.list);
+      let data = initSongData(res.data.list);  
+      getMusicUrl(data)
+      .then((res)=>{
+        console.log(res)
+        this.list = res;
+      })
+
+      // console.log(this.list);
     })
   },
   mounted(){
@@ -137,7 +144,7 @@ export default {
     .bk{
       position: absolute;
       top:0;
-      background: rgba(0,0,0,0.3);
+      background: rgba(7,17,27,0.4);
       .h(262);
       .w(375);
     }

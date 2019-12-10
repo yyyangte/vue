@@ -51,31 +51,48 @@ export const getSongList=(id)=>{
   })
 }
 
-export const getMusicUrl=(mid)=>{
+export const getMusicUrl=(list)=>{
   let url='/hy/cgi-bin/musicu.fcg'
-  // https://u.y.qq.com/cgi-bin/musicu.fcg
-  let songmid=mid||'003mBrF72dILfK'
+  let types=[];
+  let mids = list.map((item)=>{
+    types.push(0)
+    return item.songmid
+  })
   let data={
-   params:{
-     '-':'getplaysongvkey18692067669581247',
-     g_tk: 5381,
-     loginUin: 0,
-     hostUin: 0,
-     format: 'json',
-     inCharset: 'utf8',
-     outCharset: 'utf-8',
-     notice: 0,
-     platform: 'yqq.json',
-     needNewCode: 0,
-     data:`{"req":{"module":"CDN.SrfCdnDispatchServer","method":"GetCdnDispatch","param":{"guid":"1595362978","calltype":0,"userip":""}},"req_0":{"module":"vkey.GetVkeyServer","method":"CgiGetVkey","param":{"guid":"1595362978","songmid":["${songmid}"],"songtype":[0],"uin":"0","loginflag":1,"platform":"20"}},"comm":{"uin":0,"format":"json","ct":20,"cv":0}}`
+    params:{
+      '-':'getplaysongvkey18692067669581247',
+      g_tk: 5381,
+      loginUin: 0,
+      hostUin: 0,
+      format: 'json',
+      inCharset: 'utf8',
+      outCharset: 'utf-8',
+      notice: 0,
+      platform: 'yqq.json',
+      needNewCode: 0,
+      data:`{"req":{"module":"CDN.SrfCdnDispatchServer","method":"GetCdnDispatch","param":{"guid":"1595362978","calltype":0,"userip":""}},"req_0":{"module":"vkey.GetVkeyServer","method":"CgiGetVkey","param":{"guid":"1595362978","songmid":${JSON.stringify(mids)},"songtype":${JSON.stringify(types)},"uin":"0","loginflag":1,"platform":"20"}},"comm":{"uin":0,"format":"json","ct":20,"cv":0}}`
    }
   }
   return new Promise((resolve,reject)=>{
     axios(url,data)
     .then((data)=>{
       let prev='http://aqqmusic.tc.qq.com/amobile.music.tc.qq.com/'
-      let purl = data.req_0.data.midurlinfo[0].purl
-       resolve(prev+purl)
+      let urlInfos = data.req_0.data.midurlinfo;
+      let result = list.map((item,index)=>{
+        item.musicUrl = prev + urlInfos[index].purl;
+        item.albumUrl = `https://y.gtimg.cn/music/photo_new/T002R300x300M000${item.albummid}.jpg?max_age=2592000`;
+        return item;
+      })
+      resolve(result)
+    })
+  })
+}
+export const getLyric=(mid)=>{
+  let url=`/hh/music/api/lyric?g_tk=1928093487&inCharset=utf-8&outCharset=utf-8&notice=0&format=json&songmid=${mid}&platform=yqq&hostUin=0&needNewCode=0&categoryId=10000000&pcachetime=1575700858860`
+  return new Promise((resolve)=>{
+    axios.get(url)
+    .then((data)=>{
+      resolve(data)
     })
   })
 }

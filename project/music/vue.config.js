@@ -28,5 +28,7 @@ module.exports={
     .set('api',resolve('./src/api'))
     .set('style',resolve('./src/style'))
     .set('pages',resolve('./src/pages'))
+    .set('images',resolve('./src/images'))
+    .set('components',resolve('./src/components'))
   }
 }
