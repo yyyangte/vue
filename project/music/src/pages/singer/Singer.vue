@@ -2,26 +2,23 @@
   <div>
     <div class="singer">
       <ul>
-        <li v-for="(item,index) in singers" 
-            :key="index" 
-            ref="test">
+        <li v-for="(item,index) in singers" :key="index" ref="test">
           <div class="title">{{item.title}}</div>
 
           <ol>
-            <li class="con" 
-            v-for="(sItem,sIndex) in item.list" 
-            :key="sIndex"
-            @click='jumpDetail(sItem.Fsinger_mid)'>
-              <img :src="sItem.Fsinger_url">
+            <li
+              class="con"
+              v-for="(sItem,sIndex) in item.list"
+              :key="sIndex"
+              @click="jumpDetail(sItem.Fsinger_mid)"
+            >
+              <img :src="sItem.Fsinger_url" />
               <span>{{sItem.Fsinger_name}}</span>
             </li>
           </ol>
         </li>
       </ul>
-      <ul class="slider" 
-      @touchstart="touchStart" 
-      @touchmove.stop="touchMove" 
-      @touchend="touchEnd">
+      <ul class="slider" @touchstart="touchStart" @touchmove.stop="touchMove" @touchend="touchEnd">
         <li
           v-for="(item,index) in sliderData"
           :key="index"
@@ -42,11 +39,11 @@ export default {
     return {
       singers: [],
       selIndex: "热门",
-      weizhi:{
-        chushi:0,
+      weizhi: {
+        chushi: 0,
         index: 0,
         num: 0
-      }     
+      }
     };
   },
   computed: {
@@ -60,30 +57,30 @@ export default {
   },
   methods: {
     jumpDetail(mid) {
-      this.$router.push({path:`/singer/${mid}`});
+      this.$router.push({ path: `/singer/${mid}` });
     },
     touchStart(e) {
       // console.log(e.touches[0])
       // console.log("anxia");
       this.weizhi.chushi = e.touches[0].pageY;
-      this.weizhi.index=this.sliderData.indexOf(this.selIndex)
+      this.weizhi.index = this.sliderData.indexOf(this.selIndex);
       // console.log(this.weizhi)
     },
     touchMove(e) {
       // console.log(e.touches[0]);
       let distanceY = e.touches[0].pageY - this.weizhi.chushi;
       this.weizhi.num = parseInt(distanceY / 20);
-      this.moveElement(this.weizhi.num+this.weizhi.index);
+      this.moveElement(this.weizhi.num + this.weizhi.index);
     },
     touchEnd() {
       // console.log(this.weizhi.num+this.weizhi.index)
-      this.moveElement(this.weizhi.num+this.weizhi.index);
+      this.moveElement(this.weizhi.num + this.weizhi.index);
       // console.log("抬起");
-      this.selIndex=this.weizhi.num+this.weizhi.index;
+      this.selIndex = this.weizhi.num + this.weizhi.index;
     },
-    sliderClick(item,index) {
-      this.selIndex = item;     
-      this.weizhi.index=index;
+    sliderClick(item, index) {
+      this.selIndex = item;
+      this.weizhi.index = index;
       // console.log(this.weizhi.index);
       this.moveElement(index);
     },
@@ -152,13 +149,13 @@ export default {
     padding: 20px 0 0 30px;
     font-size: @fs-s;
     display: flex;
-    img{
+    img {
       .h(50);
       .w(50);
       border-radius: 50%;
     }
-    span{
-      margin-left: 20px;     
+    span {
+      margin-left: 20px;
       .l_h(50);
       .h(50);
     }
